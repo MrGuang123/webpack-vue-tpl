@@ -1,10 +1,11 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-
-function resolve(dir) {
-  return path.join(__dirname, '..', dir)
-}
+const config = require('../config/index')
+let {resolve, staticPath} = require('./utils')
+// process.env.NODE_ENV = 'production'
+setTimeout(function() {
+  console.log(process.env.NODE_ENV)
+},3000)
 
 module.exports = {
   entry: {
@@ -46,28 +47,40 @@ module.exports = {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
-      {
-        test: /\.(jpg|png|gif|jpeg)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10240
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10240
-            }
-          }
-        ]
-      }
+      // {
+      //   test: /\.(jpg|png|gif|jpeg)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 10240,
+      //         name: staticPath('image/[name]_[hash:6].[ext]')
+      //       }
+      //     }
+      //   ]
+      // },
+      // {
+      //   test: /\.(woff|woff2|eot|ttf|otf)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 10240,
+      //         name: staticPath('fonts/[name]_[hash:6].[ext]')
+      //       }
+      //     }
+      //   ]
+      // },
+      // {
+      //   test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+      //   use: {
+      //     loader: 'url-loader',
+      //     options: {
+      //       limit: 10240,
+      //       name: staticPath('medias/[name]_[hash].[ext]')
+      //     }
+      //   }
+      // }
     ]
   },
   plugins: [

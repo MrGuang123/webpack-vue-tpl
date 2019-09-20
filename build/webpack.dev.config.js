@@ -1,8 +1,16 @@
 const baseConfig = require('./webpack.base.config')
-const webpackMerge = rquire('webpack-merge')
+const webpackMerge = require('webpack-merge')
+const webpack = require('webpack')
+
+console.log(process.env.NODE_ENV)
 
 const devConfig = {
-  mode: 'development'
+  mode: 'development',
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
+  ]
 }
 
 module.exports = webpackMerge(baseConfig, devConfig)
