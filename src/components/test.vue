@@ -10,4 +10,10 @@ export default {}
 .test {
   color: red;
 }
+.hello {
+  color: blue;
+}
+.test span {
+  padding: 50px;
+}
 </style>
