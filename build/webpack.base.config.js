@@ -30,6 +30,18 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(vue|js)$/,
+        use: {
+          loader: 'eslint-loader',
+          options: {
+            formatter: require('eslint-friendly-formatter')
+          }
+        },
+        include: [resolve('src')],
+        // 定义loader类型，
+        enforce: "pre"
+      },
+      {
         test: /\.vue$/,
         use: {
           loader: 'vue-loader',
