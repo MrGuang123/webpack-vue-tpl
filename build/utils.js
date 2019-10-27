@@ -30,18 +30,18 @@ function generateStyleLoaders(options = {}) {
         }
     }
 
-    const px2remLoader = {
-        loader: 'px2rem-loader',
-        options: {
-            // 1rem = 75px
-            remUnit: 75,
-            // rem装px后小数点个数
-            remPrecsion: 8
-        }
-    }
+    // const px2remLoader = {
+    //     loader: 'px2rem-loader',
+    //     options: {
+    //         // 1rem = 75px
+    //         remUnit: 192,
+    //         // rem装px后小数点个数
+    //         remPrecsion: 6
+    //     }
+    // }
 
     function generateLoaders(loaderName, loaderOption) {
-        const loaders = options.usePostcss ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]
+        const loaders = options.usePostcss ? [cssLoader, postcssLoader] : [cssLoader]
         if (loaderName) {
             loaders.push({
                 loader: loaderName + '-loader',
