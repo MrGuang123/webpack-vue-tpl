@@ -10,6 +10,8 @@ module.exports = {
   },
   "plugins": ["vue"],
   "rules": {
-    "semi": "never"
+    "semi": "never",
+    "array-bracket-spacing": "never",
+    "camelcase": "always"
   }
 }
