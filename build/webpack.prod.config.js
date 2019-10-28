@@ -58,6 +58,7 @@ const plugins = [
 
 const prodConfig = {
   mode: context,
+  stats: config[context].stats,
   output: {
     filename: staticPath('js/[name]_[chunkhash:8].js'),
     chunkFilename: staticPath('js/[id]_[chunkhash:8].js'),

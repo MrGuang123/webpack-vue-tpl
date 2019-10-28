@@ -11,6 +11,7 @@ const context = process.env.NODE_ENV || 'development'
 
 const devConfig = {
   mode: 'development',
+  stats: config[context].stats,
   devtool: 'cheap-module-eval-source-map',
   module: {
     rules: getCssLoaders({

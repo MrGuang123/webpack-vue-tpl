@@ -1,9 +1,12 @@
 const path = require('path')
+// vue插件
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const config = require('../config/index')
 let { resolve, staticPath } = require('./utils')
 // 清空output目录
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+// 运行开发和构建过程中让命令行提示美化
+const FriendlyErrorPlugin = require('friendly-errors-webpack-plugin')
 // process.env.NODE_ENV = 'production'
 
 const context = process.env.NODE_ENV || 'development'
@@ -103,6 +106,7 @@ module.exports = {
   plugins: [
     // 将定义过的其他解析规则应用到.vue文件对应语言的块
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new FriendlyErrorPlugin()
   ]
 }
