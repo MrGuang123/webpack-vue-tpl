@@ -53,7 +53,16 @@ const plugins = [
     assetNameRegExp: /\.css$/g,
     // 使用cssnano处理器
     cssProcessor: require('cssnano')
-  })
+  }),
+  // 监听构建错误，可以做上报或者其他统计类功能
+  function () {
+    this.hooks.done.tap('done', stats => {
+      if (stats.compilation.errors && stats.compilation.errors.length && process.argv.indexOf('--watch') == -1) {
+        console.log('build error')
+        process.exit(1)
+      }
+    })
+  }
 ]
 
 const prodConfig = {
