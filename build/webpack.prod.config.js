@@ -83,13 +83,17 @@ const prodConfig = {
   //TODO: 抽时间重新配置splitChunks
   // optimization: {
   //   splitChunks: {
-  //     // 所有类型模块
-  //     chunks: 'all',
-  //     // 
   //     minSize: 1000,
-  //     minChunks: 2,
   //     automaticNameDelimiter: '~',
   //     name: module => `${module.name}~module`,
+  //     chcheGroups: {
+  //       commons: {
+  //         name: 'commons',
+  //         // 所有类型模块
+  //         chunks: 'all',
+  //         minChunks: 2,
+  //       }
+  //     }
   //   }
   // },
   plugins: plugins
