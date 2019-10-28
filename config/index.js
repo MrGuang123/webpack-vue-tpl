@@ -18,6 +18,7 @@ module.exports = {
             NODE_ENV: JSON.stringify('production'),
             API_BASEURL: JSON.stringify('/api')
         },
-        stats: 'errors-only'
+        stats: 'errors-only',
+        isTestSpeed: false
     }
 }

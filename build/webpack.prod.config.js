@@ -99,5 +99,14 @@ const prodConfig = {
   plugins: plugins
 }
 
+let resultConfig = webpackMerge(baseConfig, prodConfig)
 
-module.exports = webpackMerge(baseConfig, prodConfig)
+if (config[context].isTestSpeed) {
+  // 计算打包耗时的插件
+  const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin')
+  const smp = new SpeedMeasureWebpackPlugin()
+  resultConfig = smp.wrap(webpackMerge(baseConfig, prodConfig))
+}
+
+
+module.exports = resultConfig
