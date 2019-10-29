@@ -7,9 +7,20 @@ let { resolve, staticPath } = require('./utils')
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 // 运行开发和构建过程中让命令行提示美化
 const FriendlyErrorPlugin = require('friendly-errors-webpack-plugin')
+// 在工作池中运行loader
+const threadLoader = require('thread-loader')
 // process.env.NODE_ENV = 'production'
 
 const context = process.env.NODE_ENV || 'development'
+
+// 通过预热worker池来放置启动worker时的高延时
+// 这会启动池(pool)内最大数量的 worker 并把指定的模块载入 node.js 的模块缓存中
+// worker会受到很多限制，请仅仅在耗时的loader上使用
+threadLoader.warmup({
+  workers: 3
+}, [
+    'babel-loader'
+  ])
 
 module.exports = {
   context: path.resolve(__dirname, '..'),
@@ -36,6 +47,7 @@ module.exports = {
         test: /\.(vue|js)$/,
         use: {
           loader: 'eslint-loader',
+          // 有同样配置的 loader 会共享一个 worker 池(worker pool)
           options: {
             formatter: require('eslint-friendly-formatter')
           }
@@ -55,7 +67,15 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: ['babel-loader'],
+        use: [
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: 3
+            }
+          },
+          'babel-loader'
+        ],
         exclude: /node_modules/,
         include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')]
       },
