@@ -19,6 +19,7 @@ module.exports = {
             API_BASEURL: JSON.stringify('/api')
         },
         stats: 'errors-only',
-        isTestSpeed: false
+        isTestSpeed: false,
+        isAnalyzer: false
     }
 }

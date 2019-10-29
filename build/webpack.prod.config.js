@@ -11,11 +11,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // css优化、压缩插件
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin')
+// 打开8888端口，图形分析打包后文件大小
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 
 const context = process.env.NODE_ENV || 'production'
 
-const plugins = [
+let plugins = [
   new webpack.DefinePlugin({
     'process.env': config[context].env,
     'VERSION': JSON.stringify(require('../package.json').version)
@@ -64,6 +66,11 @@ const plugins = [
     })
   }
 ]
+
+// 根据config配置决定是否使用BundleAnalyzerPlugin
+config[context].isAnalyzer && plugins.push(new BundleAnalyzerPlugin())
+
+
 
 const prodConfig = {
   mode: context,
