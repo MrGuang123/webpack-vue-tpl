@@ -13,6 +13,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin')
 // 多进程多实例并行压缩文件
 const TerserPlugin = require('terser-webpack-plugin')
+// 为webpack模块中间解析提供缓存
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 // 打开8888端口，图形分析打包后文件大小
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
@@ -62,6 +64,9 @@ let plugins = [
   new webpack.DllReferencePlugin({
     manifest: require('../build-dll/library/library.json')
   }),
+  // 提供模块中间缓存步骤
+  // FIXME: 能极大的提升时间，但是目前存在错误，第二次编译之后会卡在webpack编译进程出不来
+  // new HardSourceWebpackPlugin(),
   // 监听构建错误，可以做上报或者其他统计类功能
   function () {
     this.hooks.done.tap('done', stats => {
@@ -116,6 +121,8 @@ const prodConfig = {
       new TerserPlugin({
         // 设置true默认值为os.cpus().length - 1
         parallel: true,
+        // 开启缓存
+        cache: true
       })
     ]
   },

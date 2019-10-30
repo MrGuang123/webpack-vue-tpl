@@ -75,7 +75,8 @@ module.exports = {
               workers: 3
             }
           },
-          'babel-loader'
+          // 添加?cacheDirectory=true，开启babel缓存，在node_modules下面会有一个.cache目录
+          'babel-loader?cacheDirectory=true'
         ],
         exclude: /node_modules/,
         include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')]
