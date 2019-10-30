@@ -58,6 +58,10 @@ let plugins = [
     // 使用cssnano处理器
     cssProcessor: require('cssnano')
   }),
+  // 使用DLLPlugin分包的manifest.json
+  new webpack.DllReferencePlugin({
+    manifest: require('../build-dll/library/library.json')
+  }),
   // 监听构建错误，可以做上报或者其他统计类功能
   function () {
     this.hooks.done.tap('done', stats => {
@@ -108,9 +112,10 @@ const prodConfig = {
   optimization: {
     minimize: true,
     minimizer: [
+      // 使用多核并行压缩会在dist下生成一个.LICENSE文件
       new TerserPlugin({
         // 设置true默认值为os.cpus().length - 1
-        parallel: true
+        parallel: true,
       })
     ]
   },
