@@ -1,9 +1,21 @@
 <template>
-  <div class="test">测试组件</div>
+  <div class="test">测试组件
+    <img :src="img1" alt="">
+    <img :src="img2" alt="">
+  </div>
 </template>
 
 <script>
-export default {}
+import logo from '../assets/logo.jpg'
+import bg from '../assets/bg.png'
+export default {
+  data() {
+    return {
+      img1: logo,
+      img2: bg
+    }
+  }
+}
 </script>
 
 <style>

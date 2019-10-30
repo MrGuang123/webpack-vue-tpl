@@ -100,7 +100,35 @@ module.exports = {
               limit: 10240,
               name: staticPath('image/[name]_[hash:6].[ext]')
             }
-          }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                // false: creates baseline JPEG file
+                progressive: true,
+                // 0-100
+                quality: 65
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: [0.65, 0.90],
+                // 1 (brute-force) to 11 (fastest),速度10的质量降低了5％，但比默认速度快8倍。速度11禁用抖动并降低压缩级别
+                speed: 4
+              },
+              gifsicle: {
+                // 隔行扫描gif以进行渐进式渲染
+                interlaced: false,
+              },
+              // 将JPG和PNG图像压缩为WEBP
+              webp: {
+                quality: 75
+              }
+            }
+          },
         ]
       },
       {
