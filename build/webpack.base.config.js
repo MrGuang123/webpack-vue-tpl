@@ -9,6 +9,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const FriendlyErrorPlugin = require('friendly-errors-webpack-plugin')
 // 在工作池中运行loader
 const threadLoader = require('thread-loader')
+
 // process.env.NODE_ENV = 'production'
 
 const context = process.env.NODE_ENV || 'development'

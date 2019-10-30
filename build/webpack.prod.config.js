@@ -11,6 +11,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // css优化、压缩插件
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin')
+// 多进程多实例并行压缩文件
+const TerserPlugin = require('terser-webpack-plugin')
 // 打开8888端口，图形分析打包后文件大小
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
@@ -103,6 +105,15 @@ const prodConfig = {
   //     }
   //   }
   // },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        // 设置true默认值为os.cpus().length - 1
+        parallel: true
+      })
+    ]
+  },
   plugins: plugins
 }
 
