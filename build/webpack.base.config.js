@@ -40,7 +40,8 @@ module.exports = {
       '@': resolve('src'),
       '@views': resolve('src/views'),
       'vue': 'vue/dist/vue.common.js'
-    }
+    },
+    mainFields: ['main']
   },
   module: {
     rules: [
@@ -64,7 +65,8 @@ module.exports = {
           options: {
 
           }
-        }
+        },
+        include: [resolve('src')],
       },
       {
         test: /\.js$/,
