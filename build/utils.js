@@ -59,8 +59,8 @@ function generateStyleLoaders(options = {}) {
             //     // fallback: 'vue-style-loader'
             // })
         } else {
-            // return ['vue-style-loader'].concat(loaders)
-            return loaders
+            return ['vue-style-loader'].concat(loaders)
+            // return loaders
         }
     }
 

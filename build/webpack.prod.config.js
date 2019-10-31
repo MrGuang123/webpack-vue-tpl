@@ -1,4 +1,6 @@
+
 const path = require('path')
+const glob = require('glob-all')
 const baseConfig = require('./webpack.base.config')
 const config = require('../config')
 let { resolve, staticPath, getCssLoaders } = require('./utils')
@@ -13,6 +15,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin')
 // 多进程多实例并行压缩文件
 const TerserPlugin = require('terser-webpack-plugin')
+// css的tree shaking
+const PurgecssPlugin = require('purgecss-webpack-plugin')
 // 为webpack模块中间解析提供缓存
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 // 打开8888端口，图形分析打包后文件大小
@@ -20,6 +24,10 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 
 const context = process.env.NODE_ENV || 'production'
+
+const PATHS = {
+  src: path.resolve(__dirname, '../src')
+}
 
 let plugins = [
   new webpack.DefinePlugin({
@@ -54,6 +62,16 @@ let plugins = [
   new MiniCssExtractPlugin({
     filename: staticPath('css/[name]_[contenthash:8].css')
   }),
+  // css tree shaking
+  // new PurgecssPlugin({
+  //   paths: glob.sync([
+  //     path.join(__dirname, '../index.html'),
+  //     path.join(__dirname, '../src/*.vue'),
+  //     path.join(__dirname, '../src/**/*.vue'),
+  //     path.join(__dirname, '../src/**/*.js'),
+  //     path.join(__dirname, '../src//*.js')
+  //   ])
+  // }),
   // css压缩，使用css的处理器cssnano
   new OptimizeCssPlugin({
     assetNameRegExp: /\.css$/g,
@@ -137,6 +155,5 @@ if (config[context].isTestSpeed) {
   const smp = new SpeedMeasureWebpackPlugin()
   resultConfig = smp.wrap(webpackMerge(baseConfig, prodConfig))
 }
-
 
 module.exports = resultConfig
